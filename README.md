@@ -43,7 +43,7 @@ fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 ### install mysql
 1. wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.21.tar.gz  
 2. tar -zxvf mysql-5.7.21.tar.gz  
-3. cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+3. /root/mysql-5.7.21/cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
 -DMYSQL_DATADIR=/mydata/mysql/data \
 -DSYSCONFDIR=/etc \
 -DMYSQL_USER=mysql \
