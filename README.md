@@ -10,13 +10,20 @@
 ### install nginx
 1. wget http://nginx.org/download/nginx-1.12.2.tar.gz  
 2. tar -zxvf nginx-1.12.2.tar.gz  
-3. ./configure --prefix=/usr/local/nginx
+3. /root/nginx-1.12.2/configure --prefix=/usr/local/nginx
 4. make
 5. make install
-6. ./nginx
+6. /usr/local/nginx/sbin/nginx 
+7. ps aux | grep nginx
 ### install php
 1. wget http://hk1.php.net/get/php-7.2.4.tar.gz/from/this/mirror  
 2. tar -zxvf mirror
 3. /root/php-7.2.4/configure --prefix=/usr/local/php --enable-fpm
 4. make  
 5. make install
+6. /usr/local/php/sbin/php-fpm
+7. cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
+8. /usr/local/php/sbin/php-fpm
+9. cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf  
+10. /usr/local/php/sbin/php-fpm  
+11. ps aux | grep php-fpm
