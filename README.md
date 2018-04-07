@@ -17,7 +17,17 @@
 5. make install
 6. /usr/local/nginx/sbin/nginx 
 7. ps aux | grep nginx  
-备注：启动./nginx 停止./nginx -s stop 重启./nginx -s reload
+8. 备注：启动./nginx 停止./nginx -s stop 重启./nginx -s reload  
+9. 修改配置文件：/usr/local/nginx/conf/nginx.conf  
+location ~ \.php {  
+fastcgi_pass    127.0.0.1:9000;  
+fastcgi_index   /index.php;  
+include         /usr/local/nginx/conf/fastcgi_params;  
+fastcgi_split_path_info            ^(.+\.php)(/.+)$;  
+fastcgi_param   PATH_INTO          $fastcgi_path_info;  
+fastcgi_param   PATH_TRANSLATED    $document_root$fastcgi_path_info;  
+fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;  
+}
 ### install php
 1. wget http://hk1.php.net/get/php-7.2.4.tar.gz/from/this/mirror  
 2. tar -zxvf mirror
