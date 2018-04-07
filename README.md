@@ -8,3 +8,7 @@
 3).编译安装 make install；  
 2.源安装（yum install nginx）；
 ### install nginx
+1. wget http://nginx.org/download/nginx-1.12.2.tar.gz  
+2. tar -zxvf nginx-1.12.2.tar.gz  
+3. cd nginx-1.12.2  
+4. ./configure
