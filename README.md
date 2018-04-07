@@ -42,4 +42,24 @@ fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 11. ps aux | grep php-fpm
 ### install mysql
 1. wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.21.tar.gz  
-2. tar -zxvf mysql-5.7.21.tar.gz
+2. tar -zxvf mysql-5.7.21.tar.gz  
+3. cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+-DMYSQL_DATADIR=/mydata/mysql/data \
+-DSYSCONFDIR=/etc \
+-DMYSQL_USER=mysql \
+-DWITH_MYISAM_STORAGE_ENGINE=1 \
+-DWITH_INNOBASE_STORAGE_ENGINE=1 \
+-DWITH_ARCHIVE_STORAGE_ENGINE=1 \
+-DWITH_MEMORY_STORAGE_ENGINE=1 \
+-DWITH_READLINE=1 \
+-DMYSQL_UNIX_ADDR=/var/run/mysql/mysql.sock \
+-DMYSQL_TCP_PORT=3306 \
+-DENABLED_LOCAL_INFILE=1 \
+-DENABLE_DOWNLOADS=1 \
+-DWITH_PARTITION_STORAGE_ENGINE=1 \
+-DEXTRA_CHARSETS=utf8 \
+-DDEFAULT_COLLATION=utf8_general_ci \
+-DWITH_DEBUG=0 \
+-DMYSQL_MAINTAINER_MODE=0 \
+-DWITH_SSL:STRING=bundled \
+-DWITH_ZLIB:STRING=bundled 
