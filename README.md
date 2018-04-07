@@ -40,3 +40,6 @@ fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 9. cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf  
 10. /usr/local/php/sbin/php-fpm  
 11. ps aux | grep php-fpm
+### install mysql
+1. wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.21.tar.gz  
+2. tar -zxvf mysql-5.7.21.tar.gz
