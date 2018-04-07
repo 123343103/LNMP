@@ -13,3 +13,4 @@
 3. ./configure
 4. make
 5. make install
+6. ./nginx
