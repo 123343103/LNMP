@@ -10,7 +10,13 @@
 ### install nginx
 1. wget http://nginx.org/download/nginx-1.12.2.tar.gz  
 2. tar -zxvf nginx-1.12.2.tar.gz  
-3. ./configure
+3. ./configure --prefix=/usr/local/nginx
 4. make
 5. make install
 6. ./nginx
+### install php
+1. wget http://hk1.php.net/get/php-7.2.4.tar.gz/from/this/mirror  
+2. tar -zxvf mirror
+3. /root/php-7.2.4/configure --prefix=/usr/local/php --enable-fpm
+4. make  
+5. make install
