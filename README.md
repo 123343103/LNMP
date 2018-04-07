@@ -16,7 +16,8 @@
 4. make
 5. make install
 6. /usr/local/nginx/sbin/nginx 
-7. ps aux | grep nginx
+7. ps aux | grep nginx  
+备注：启动./nginx 停止./nginx -s stop 重启./nginx -s reload
 ### install php
 1. wget http://hk1.php.net/get/php-7.2.4.tar.gz/from/this/mirror  
 2. tar -zxvf mirror
