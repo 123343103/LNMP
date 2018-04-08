@@ -66,4 +66,16 @@ fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 -DWITH_DEBUG=0 \
 -DMYSQL_MAINTAINER_MODE=0 \
 -DWITH_SSL:STRING=bundled \
--DWITH_ZLIB:STRING=bundled 
+-DWITH_ZLIB:STRING=bundled  
+5. /usr/local/src/mysql-5.7.21/cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+-DMYSQL_DATADIR=/usr/local/mysql/data \
+-DSYSCONFDIR=/usr/local/mysql/etc \
+-DDEFAULT_CHARSET=utf8 \
+-DDEFAULT_COLLATION=utf8_general_ci \
+-DWITH_MYISAM_STORAGE_ENGINE=1 \
+-DWITH_INNOBASE_STORAGE_ENGINE=1 \
+-DWITH_ARCHIVE_STORAGE_ENGINE=1 \
+-DWITHOUT_PARTITION_STORAGE_ENGINE=1 \
+-DWITH_DEBUG=ON \
+-DDOWNLOAD_BOOST=ON \
+-DWITH_BOOST=/usr/local/mysql/boost
