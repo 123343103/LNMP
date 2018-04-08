@@ -6,6 +6,7 @@
 1).配置 ./configure 或 cmake；  
 2).编译 make；  
 3).编译安装 make install；  
+4).备注：源代码保存位置 /usr/local/src，软件安装位置 /usr/local
 2. 源安装（yum install nginx）；
 ### linux常用命令
 1. netstat -nlpt（查看端口）
