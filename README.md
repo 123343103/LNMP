@@ -10,15 +10,16 @@
 ### linux常用命令
 1. netstat -nlpt（查看端口）
 ### install nginx
-1. wget http://nginx.org/download/nginx-1.12.2.tar.gz  
-2. tar -zxvf nginx-1.12.2.tar.gz  
-3. /root/nginx-1.12.2/configure --prefix=/usr/local/nginx
-4. make
-5. make install
-6. /usr/local/nginx/sbin/nginx 
-7. ps aux | grep nginx  
-8. 备注：启动./nginx 停止./nginx -s stop 重启./nginx -s reload  
-9. 修改配置文件：/usr/local/nginx/conf/nginx.conf  
+1. cd /usr/local/src
+2. wget http://nginx.org/download/nginx-1.12.2.tar.gz  
+3. tar -zxvf nginx-1.12.2.tar.gz  
+4. /usr/local/src/nginx-1.12.2/configure --prefix=/usr/local/nginx
+5. make
+6. make install
+7. /usr/local/nginx/sbin/nginx 
+8. ps aux | grep nginx  
+9. 备注：启动./nginx 停止./nginx -s stop 重启./nginx -s reload  
+10. 修改配置文件：/usr/local/nginx/conf/nginx.conf  
 location ~ \.php {  
 fastcgi_pass    127.0.0.1:9000;  
 fastcgi_index   /index.php;  
@@ -29,21 +30,23 @@ fastcgi_param   PATH_TRANSLATED    $document_root$fastcgi_path_info;
 fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;  
 }
 ### install php
-1. wget http://hk1.php.net/get/php-7.2.4.tar.gz/from/this/mirror  
-2. tar -zxvf mirror
-3. /root/php-7.2.4/configure --prefix=/usr/local/php --enable-fpm
-4. make  
-5. make install
-6. /usr/local/php/sbin/php-fpm
-7. cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
-8. /usr/local/php/sbin/php-fpm
-9. cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf  
-10. /usr/local/php/sbin/php-fpm  
-11. ps aux | grep php-fpm
+1. cd /usr/local/src
+2. wget http://hk1.php.net/get/php-7.2.4.tar.gz/from/this/mirror  
+3. tar -zxvf mirror
+4. /usr/local/src/php-7.2.4/configure --prefix=/usr/local/php --enable-fpm
+5. make  
+6. make install
+7. /usr/local/php/sbin/php-fpm
+8. cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
+9. /usr/local/php/sbin/php-fpm
+10. cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf  
+11. /usr/local/php/sbin/php-fpm  
+12. ps aux | grep php-fpm
 ### install mysql
-1. wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.21.tar.gz  
-2. tar -zxvf mysql-5.7.21.tar.gz  
-3. /root/mysql-5.7.21/cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+1. cd /usr/local/src
+2. wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.21.tar.gz  
+3. tar -zxvf mysql-5.7.21.tar.gz  
+4. /usr/local/src/mysql-5.7.21/cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
 -DMYSQL_DATADIR=/mydata/mysql/data \
 -DSYSCONFDIR=/etc \
 -DMYSQL_USER=mysql \
