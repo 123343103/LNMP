@@ -78,4 +78,5 @@ fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 -DWITHOUT_PARTITION_STORAGE_ENGINE=1 \
 -DWITH_DEBUG=ON \
 -DDOWNLOAD_BOOST=ON \
+-DDOWNLOAD_BOOST_TIMEOUT=6000 \
 -DWITH_BOOST=/usr/local/mysql/boost
