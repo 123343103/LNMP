@@ -79,5 +79,5 @@ fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 -DWITH_DEBUG=ON \
 -DDOWNLOAD_BOOST=ON \
 -DDOWNLOAD_BOOST_TIMEOUT=6000 \
--DWITH_BOOST=/usr/local/boost  
+-DWITH_BOOST=/usr/local/boost  
 备注：cmake失败时，需rm CMakeCache.txt
