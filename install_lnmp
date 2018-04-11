@@ -1,0 +1,379 @@
+#!/bin/bash
+
+workdir=$(cd `dirname $0`; pwd)
+php_version=php-5.6.15.tar.gz
+php_dir=/usr/local/php
+php_s_dir=php-5.6.15
+mysql_version=mysql-5.6.26.tar.gz
+mysql_dir=/usr/local/mysql
+mysql_s_dir=mysql-5.6.26
+nginx_version=nginx-1.9.6.tar.gz
+nginx_dir=/usr/local/nginx
+nginx_s_dir=nginx-1.9.6
+pcre_version=pcre-8.37.tar.gz
+pcre_s_dir=pcre-8.37
+
+rpm -ivh http://mirrors.aliyun.com/epel/6Server/x86_64/epel-release-6-8.noarch.rpm
+
+function install_php {
+
+	echo "start install php"
+	echo "=========================================================================="
+	sleep 2
+
+	cd $workdir
+	yum -y install gcc gcc-c++ glibc glibc-devel libjpeg libjpeg-devel libpng\
+	 	       libpng-devel libtiff-devel fontconfig-devel freetype-devel \
+		       libXpm-devel gettext-devel openssl openssl-devel libtool-ltdl-devel  \
+		       libxml2  libxml2-devel gd curl curl-devel libiconv  zlib zlib-devel  \
+		       freetype freetype-devel glib2 glib2-devel bzip2 bzip2-devel libevent \
+		       openldap openldap-devel nss_ldap openldap-clients openldap-servers \
+                       libxslt libxslt-devel
+	echo "start install libiconv"
+	echo "==========================================================================="
+	sleep 2
+	if [ ! -f libiconv-1.14.tar.gz ];then
+		wget 'http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.14.tar.gz'
+	fi
+	if [ -f libiconv-1.14.tar.gz ];then
+		tar -zxvf libiconv-1.14.tar.gz 
+	else
+		echo "libicon can not get success"
+		exit 1
+	fi
+	cd libiconv-1.14
+	./configure --prefix=/usr/local/
+	if [ $? -eq 0 ];then
+		make
+		if [ $? -eq 0 ];then
+			make install
+			if [ $? -ne 0 ];then
+				echo "make install libiconv error"
+				exit 1
+			fi
+		else
+			echo "make libicon error"
+			exit 1
+		fi
+	else
+		echo "configure libconv error"
+		exit 1
+	fi
+	cd ..
+	echo "start install libmcrypt"
+	echo "============================================================================"
+	sleep 2
+	if [ ! -f libmcrypt-2.5.8.tar.gz ];then
+		wget http://lcmp.googlecode.com/files/libmcrypt-2.5.8.tar.gz
+	fi
+	if [ -f libmcrypt-2.5.8.tar.gz ];then
+		tar -zxvf libmcrypt-2.5.8.tar.gz 
+	else
+		echo "libmcrypt can not get success"
+		exit 1
+	fi
+	cd libmcrypt-2.5.8
+	./configure 
+	if [ $? -eq 0 ];then
+		make
+		if [ $? -eq 0 ];then
+			make install
+			if [ $? -ne 0 ];then
+				echo "make install libmcrypt error"
+				exit 1
+			fi
+		else
+			echo "make libmcrypt error"
+			exit 1
+		fi
+	else
+		echo "configure libconv error"
+		exit 1
+	fi
+	cd ..
+	echo "start install mhash"
+	echo "=============================================================================="
+	sleep 2
+	if [ ! -f mhash-0.9.9.9.tar.gz ];then
+		wget 'https://downloads.sourceforge.net/project/mhash/mhash/0.9.9.9/mhash-0.9.9.9.tar.gz?r=&ts=1336843915&use_mirror=cdnetworks-kr-2'
+	fi
+	if [ -f mhash-0.9.9.9.tar.gz ];then
+		tar -zxvf mhash-0.9.9.9.tar.gz 
+	else
+		echo "mhash can not get success"
+		exit 1
+	fi
+	cd mhash-0.9.9.9
+	./configure 
+	if [ $? -eq 0 ];then
+		make
+		if [ $? -eq 0 ];then
+			make install
+			if [ $? -ne 0 ];then
+				echo "make install mhash error"
+				exit 1
+			fi
+		else
+			echo "make mhash error"
+			exit 1
+		fi
+	else
+		echo "configure mhash error"
+		exit 1
+	fi
+	ln -s /usr/local/lib/libmcrypt.la /usr/lib/libmcrypt.la
+	ln -s /usr/local/lib/libmcrypt.so /usr/lib/libmcrypt.so
+	ln -s /usr/local/lib/libmcrypt.so.4 /usr/lib/libmcrypt.so.4
+	ln -s /usr/local/lib/libmcrypt.so.4.4.8 /usr/lib/libmcrypt.so.4.4.8
+	ln -s /usr/local/lib/libmhash.a /usr/lib/libmhash.a
+	ln -s /usr/local/lib/libmhash.la /usr/lib/libmhash.la
+	ln -s /usr/local/lib/libmhash.so /usr/lib/libmhash.so
+	ln -s /usr/local/lib/libmhash.so.2 /usr/lib/libmhash.so.2
+	ln -s /usr/local/lib/libmhash.so.2.0.1 /usr/lib/libmhash.so.2.0.1
+	ln -s /usr/local/bin/libmcrypt-config /usr/bin/libmcrypt-config
+	cd ..
+	echo "start install mcrypt"
+	echo "==============================================================================="
+	sleep 2
+	if [ ! -f mcrypt-2.6.8.tar.gz ];then
+		wget http://fossies.org/linux/privat/mcrypt-2.6.8.tar.gz
+	fi
+	if [ -f mcrypt-2.6.8.tar.gz ];then
+		tar -zxvf mcrypt-2.6.8.tar.gz 
+	else
+		echo "mcrypt can not get success"
+		exit 1
+	fi
+	cd mcrypt-2.6.8
+	ldconfig 
+	./configure 
+	if [ $? -eq 0 ];then
+		make
+		if [ $? -eq 0 ];then
+			make install
+			if [ $? -ne 0 ];then
+				echo "make install mcrypt error"
+				exit 1
+			fi
+		else
+			echo "make mcrypt error"
+			exit 1
+		fi
+	else
+		echo "configure mcrypt error"
+		exit 1
+	fi
+	cd ..
+	echo "start install php-fpm and php"
+	echo "==============================================================================="
+	sleep 2
+	if [ ! -f $php_version ];then
+		wget http://mirrors.sohu.com/php/$php_version
+	fi
+	
+	useradd -M -s /sbin/nologin www
+        tar -xf $php_version
+	cd $workdir/$php_s_dir
+	./configure --prefix=$php_dir \
+	--with-config-file-path=${php_dir}/etc \
+	--enable-fpm --with-fpm-user=www --with-fpm-group=www \
+	--with-mysql=$mysql_dir \
+	--with-mysqli=${mysql_dir}/bin/mysql_config \
+	--with-pdo-sqlite --with-sqlite --with-sqlite3 --with-gd \
+	--enable-gd-native-ttf --with-gettext \
+	--with-iconv-dir=/usr/local/libiconv \
+	--with-freetype-dir \
+	--with-jpeg-dir --with-png-dir \
+	--with-zlib --with-libxml-dir=/usr \
+	--enable-xml --with-xsl --enable-shmop \
+	--enable-sysvsem --with-curl \
+	--enable-inline-optimization \
+	--enable-mbregex --enable-mbstring \
+	--with-mcrypt --with-mhash --enable-pcntl \
+	--enable-sockets --with-xmlrpc --enable-soap \
+	--enable-zip --with-bz2 --enable-ftp --disable-ipv6 \
+	--enable-zend-multibyte  \
+	--with-pdo-mysql=$mysql_dir
+	if [ $? -eq 0 ];then
+		sed -i 's/-lcrypt$/-lcrypt -liconv/' Makefile
+		make
+		if [ $? -eq 0 ];then
+			make install
+			if [ $? -ne 0 ];then
+				echo "make install php error"
+				exit 1
+			fi
+		else
+			echo "make php error"
+			exit 1
+		fi
+	else
+		echo "configure php error"
+		exit 1
+	fi
+	ln -s $php_dir /usr/local/php
+	cp $workdir/${php_s_dir}/php.ini-production /usr/local/php/etc/php.ini
+	cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
+	cp $workdir/${php_s_dir}/sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
+	chmod +x /etc/init.d/php-fpm
+	chkconfig --level 345 php-fpm on
+}
+function install_mysql 
+{
+	echo "start install mysql"
+	echo "==============================================================================="
+	sleep 2
+	cd $workdir
+	useradd mysql -M -s /sbin/nologin
+	mkdir -p $mysql_dir
+	chown -R mysql.mysql $mysql_dir
+	yum -y install gcc gcc-c++ cmake ncurses-devel bison glibc glibc-devel openssl openssl-devel 
+	if [ ! -f $mysql_version ];then
+		wget http://mysql.ntu.edu.tw/Downloads/MySQL-5.5/mysql-5.5.32.tar.gz
+	fi
+	if [ -f $mysql_version ];then
+		tar -zxvf $mysql_version
+		echo $mysql_s_dir
+		cd $workdir/$mysql_s_dir
+		pwd
+		
+		cmake -DMYSQL_USER=mysql \
+		-DCMAKE_INSTALL_PREFIX=$mysql_dir \
+		-DMYSQL_DATADIR=${mysql_dir}/data \
+		-DWITH_INNOBASE_STORAGE_ENGINE=1 \
+		-DWITH_PARTITION_STORAGE_ENGINE=1 \
+		-DWITH_PERFSCHEMA_STORAGE_ENGINE=1 \
+		-DWITH_MYISAM_STORAGE_ENGINE=1 \
+		-DMYSQL_UNIX_ADDR=/tmp/mysql.sock \
+		-DMYSQL_TCP_PORT=3306 \
+		-DWITH_EXTRA_CHARSETS=all \
+		-DDEFAULT_CHARSET=utf8 \
+		-DDEFAULT_COLLATION=utf8_general_ci \
+		-DWITH_DEBUG=0
+		if [ $? -eq 0 ];then
+			make
+			if [ $? -eq 0 ];then
+				make install
+			else
+				echo "make install error"
+				exit 1
+			fi
+		else
+			echo "make error"
+			exit 1
+		fi
+	else
+		echo "can not find mysql package"
+	fi
+
+}
+function init_mysql {
+	echo "start init mysql"
+	echo "====================================================================================="
+	sleep 2
+	if [ -f /etc/my.cnf ];then
+	mv /etc/my.cnf{,.bak.`date -I`}
+	fi
+	cp $workdir/${mysql_s_dir}/support-files/my-default.cnf /etc/my.cnf
+        cp $workdir/${mysql_s_dir}/support-files/mysql.server /etc/init.d/mysqld
+	chmod + x /usr/local/mysql/scripts/mysql_install_db
+       /usr/local/mysql/scripts/mysql_install_db --user=mysql --defaults-file=/etc/my.cnf \
+       --basedir=/usr/local/mysql/ \
+       --datadir=/usr/local/mysql/data
+       #ln -s /data/mysql-5.5.32 /usr/local/mysql
+       echo "export PATH=/usr/local/mysql/bin:$PATH" >>/etc/profile
+       chmod +x /etc/init.d/mysqld
+       chkconfig --level 345 mysqld on
+       echo "export PATH=/usr/local/mysql/bin:$PATH" >>/etc/profile
+       source /etc/profile
+}
+function install_nginx {
+	echo "start install nginx"
+	echo "====================================================================================="
+	sleep 2
+	cd $workdir
+	yum -y install gcc gcc-c++ autoconf libjpeg libjpeg-devel libpng libpng-devel freetype \
+		freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel \
+		bzip2 bzip2-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5 \
+		krb5-devel libidn libidn-devel openssl openssl-devel
+
+	user=`grep "^www" /etc/passwd|awk -F ":" '{print $1}'`
+	if [ !-z $user ];then
+		useradd www -M -s /sbin/nologin
+	fi
+	if [ -f  $pcre_version ];then
+		tar -zxvf $pcre_version
+	 else
+		 echo "can not find pcre package"
+		 exit 1
+	 fi
+	if [ ! -f $nginx_version ];then
+		wget http://mirrors.sohu.com/nginx/$nginx_version
+	fi
+	if [ -f $nginx_version ];then
+		tar -zxvf $nginx_version
+		cd $workdir/$nginx_s_dir
+		./configure --user=www --group=www --prefix=$nginx_dir --with-http_stub_status_module --with-http_ssl_module  --with-http_gzip_static_module --with-pcre=../${pcre_s_dir}
+
+		if [ $? -eq 0 ];then
+			make
+			if [ $? -eq 0 ];then
+				make install
+				if [ $? -eq 0 ];then
+					ln -s /data/nginx-1.2.4 /usr/local/nginx
+					cd /usr/local/nginx/conf/
+					cp nginx.conf{,.bak.`date -I`}
+                			egrep -v "^$|#" nginx.conf.bak.`date -I` > nginx.conf
+					echo "/usr/local/lib" >> /etc/ld.so.conf
+					/sbin/ldconfig
+				else
+					echo "make install nginx error"
+					exit 1
+				fi
+			else
+				echo "make error"
+				exit 1
+			fi
+		 else
+			echo "configure error"
+			exit 1
+		 fi
+	   else
+		   echo "can not find nginx package"
+		   exit 1
+	   fi
+}
+echo "please input what you want to install"
+echo "1. install mysql only"
+echo "2. install nginx only"
+echo "3. install lnmp"
+echo "4. install lnp"
+echo "5. init mysql"
+echo "6. inistall php+fpm"
+echo -n "please input select num: "
+read select
+if [ ! -d /data ];then
+mkdir /data
+fi
+if [ $select -eq 1 ];then
+	install_mysql
+	init_mysql
+elif [ $select -eq 2 ];then
+	install_nginx
+elif [ $select -eq 3 ];then
+	install_mysql
+	init_mysql
+	install_php
+	install_nginx
+elif [ $select -eq 4 ];then
+	install_mysql
+	install_php
+	install_nginx
+elif [ $select -eq 5 ];then
+	init_mysql
+elif [ $select -eq 6 ];then
+	install_php
+else
+	echo "error select"
+	exit 1
+fi
