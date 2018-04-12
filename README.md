@@ -93,4 +93,6 @@ fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 -DWITH_ARCHIVE_STORAGE_ENGINE=1 \
 -DWITH_BOOST=boost  
 备注：cmake失败时，需rm CMakeCache.txt  
-set password for 'root'@'localhost'=password('qatx');
+set password for 'root'@'localhost'=password('qatx');  
+firewall-cmd --permanent --zone=public --add-port=80/tcp  
+systemctl restart firewalld.service
