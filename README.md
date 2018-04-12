@@ -80,4 +80,17 @@ fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 -DDOWNLOAD_BOOST=ON \
 -DDOWNLOAD_BOOST_TIMEOUT=6000 \
 -DWITH_BOOST=/usr/local/boost  
-备注：cmake失败时，需rm CMakeCache.txt
+备注：cmake失败时，需rm CMakeCache.txt  
+6. /usr/local/src/mysql-5.7.21/cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+-DMYSQL_DATADIR=/data/mysql \
+-DSYSCONFDIR=/etc \
+-DDEFAULT_CHARSET=utf8 \
+-DDEFAULT_COLLATION=utf8_general_ci \
+-DENABLE_DOWNLOADS=ON \
+-DWITH_DEBUG=ON \
+-DWITH_INNOBASE_STORAGE_ENGINE=1 \
+-DWITH_MYISAM_STORAGE_ENGINE=1 \
+-DWITH_ARCHIVE_STORAGE_ENGINE=1 \
+-DWITH_BOOST=boost  
+备注：cmake失败时，需rm CMakeCache.txt  
+set password for 'root'@'localhost'=password('qatx');
