@@ -95,4 +95,5 @@ fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 备注：cmake失败时，需rm CMakeCache.txt  
 set password for 'root'@'localhost'=password('qatx');  
 firewall-cmd --permanent --zone=public --add-port=80/tcp  
-systemctl restart firewalld.service
+systemctl restart firewalld.service  
+vi /etc/firewalld/zones/public.xml
