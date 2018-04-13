@@ -80,6 +80,6 @@ fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 25. systemctl restart firewalld   
 备注：cmake失败时，需rm CMakeCache.txt   
 vi /etc/firewalld/zones/public.xml  
-explicit_defaults_for_timestamp=1
+explicit_defaults_for_timestamp=1  
 rpm -qa | grep mariadb  
 rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64
