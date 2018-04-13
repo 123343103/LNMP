@@ -68,7 +68,8 @@ fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 13. cd /usr/local/mysql  
 14. bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/data/mysql  
 15. #MvVr,sen2ty  
-16. cp support-files/mysql.server /etc/init.d/mysql
+16. cp support-files/mysql.server /etc/init.d/mysql  
+17. service mysql start
 
 
 
