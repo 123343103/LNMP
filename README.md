@@ -44,10 +44,38 @@ fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 11. /usr/local/php/sbin/php-fpm  
 12. ps aux | grep php-fpm
 ### install mysql
-1. cd /usr/local/src
-2. wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.21.tar.gz  
-3. tar -zxvf mysql-5.7.21.tar.gz  
-4. /usr/local/src/mysql-5.7.21/cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+1. yum -y install gcc gcc-c++ cmake ncurses-devel  
+2. groupadd mysql  
+3. useradd -r -g mysql -s /bin/false mysql  
+4. mkdir -p /usr/local/mysql  
+5. mkdir -p /data/mysql  
+6. cd /usr/local/src  
+7. wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-boost-5.7.21.tar.gz  
+8. tar -zxvf mysql-boost-5.7.21.tar.gz  
+9. cd mysql-5.7.21  
+10. cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+-DMYSQL_DATADIR=/data/mysql \
+-DSYSCONFDIR=/etc \
+-DDEFAULT_CHARSET=utf8 \
+-DDEFAULT_COLLATION=utf8_general_ci \
+-DWITH_INNOBASE_STORAGE_ENGINE=1 \
+-DWITH_MYISAM_STORAGE_ENGINE=1 \
+-DWITH_MEMORY_STORAGE_ENGINE=1 \
+-DWITH_ARCHIVE_STORAGE_ENGINE=1 \
+-DWITH_BOOST=boost  
+11. make
+12. make install  
+13. cd /usr/local/mysql  
+14. bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/data/mysql  
+15. #MvVr,sen2ty  
+16. cp support-files/mysql.server /etc/init.d/mysql
+
+
+
+
+
+
+10. cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
 -DMYSQL_DATADIR=/mydata/mysql/data \
 -DSYSCONFDIR=/etc \
 -DMYSQL_USER=mysql \
@@ -97,6 +125,7 @@ set password for 'root'@'localhost'=password('qatx');
 firewall-cmd --permanent --zone=public --add-port=80/tcp  
 systemctl restart firewalld.service  
 vi /etc/firewalld/zones/public.xml  
+explicit_defaults_for_timestamp=1
 
 
 rpm -qa | grep mariadb  
