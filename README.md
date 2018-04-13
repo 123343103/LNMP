@@ -77,7 +77,8 @@ fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 22. flush privileges;  
 23. exit  
 24. firewall-cmd --zone=public --add-port=3306/tcp --permanent  
-25. systemctl restart firewalld   
+25. systemctl restart firewalld  
+26. systemctl enable mysql  
 备注：cmake失败时，需rm CMakeCache.txt   
 vi /etc/firewalld/zones/public.xml  
 explicit_defaults_for_timestamp=1  
