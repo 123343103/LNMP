@@ -96,4 +96,8 @@ fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 set password for 'root'@'localhost'=password('qatx');  
 firewall-cmd --permanent --zone=public --add-port=80/tcp  
 systemctl restart firewalld.service  
-vi /etc/firewalld/zones/public.xml
+vi /etc/firewalld/zones/public.xml  
+
+
+rpm -qa | grep mariadb  
+rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64
