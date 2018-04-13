@@ -69,65 +69,17 @@ fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 14. bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/data/mysql  
 15. #MvVr,sen2ty  
 16. cp support-files/mysql.server /etc/init.d/mysql  
-17. service mysql start
-
-
-
-
-
-
-10. cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
--DMYSQL_DATADIR=/mydata/mysql/data \
--DSYSCONFDIR=/etc \
--DMYSQL_USER=mysql \
--DWITH_MYISAM_STORAGE_ENGINE=1 \
--DWITH_INNOBASE_STORAGE_ENGINE=1 \
--DWITH_ARCHIVE_STORAGE_ENGINE=1 \
--DWITH_MEMORY_STORAGE_ENGINE=1 \
--DWITH_READLINE=1 \
--DMYSQL_UNIX_ADDR=/var/run/mysql/mysql.sock \
--DMYSQL_TCP_PORT=3306 \
--DENABLED_LOCAL_INFILE=1 \
--DENABLE_DOWNLOADS=1 \
--DWITH_PARTITION_STORAGE_ENGINE=1 \
--DEXTRA_CHARSETS=utf8 \
--DDEFAULT_COLLATION=utf8_general_ci \
--DWITH_DEBUG=0 \
--DMYSQL_MAINTAINER_MODE=0 \
--DWITH_SSL:STRING=bundled \
--DWITH_ZLIB:STRING=bundled  
-5. /usr/local/src/mysql-5.7.21/cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
--DMYSQL_DATADIR=/usr/local/mysql/data \
--DSYSCONFDIR=/usr/local/mysql/etc \
--DDEFAULT_CHARSET=utf8 \
--DDEFAULT_COLLATION=utf8_general_ci \
--DWITH_MYISAM_STORAGE_ENGINE=1 \
--DWITH_INNOBASE_STORAGE_ENGINE=1 \
--DWITH_ARCHIVE_STORAGE_ENGINE=1 \
--DWITHOUT_PARTITION_STORAGE_ENGINE=1 \
--DWITH_DEBUG=ON \
--DDOWNLOAD_BOOST=ON \
--DDOWNLOAD_BOOST_TIMEOUT=6000 \
--DENABLE_DOWNLOADS=ON \
--DWITH_BOOST=/usr/local/boost  
-备注：cmake失败时，需rm CMakeCache.txt  
-6. /usr/local/src/mysql-5.7.21/cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
--DMYSQL_DATADIR=/data/mysql \
--DSYSCONFDIR=/etc \
--DDEFAULT_CHARSET=utf8 \
--DDEFAULT_COLLATION=utf8_general_ci \
--DWITH_INNOBASE_STORAGE_ENGINE=1 \
--DWITH_MYISAM_STORAGE_ENGINE=1 \
--DWITH_PARTITION_STORAGE_ENGINE=1 \
--DWITH_PERFSCHEMA_STORAGE_ENGINE=1 \
--DWITH_BOOST=boost  
-备注：cmake失败时，需rm CMakeCache.txt  
-set password for 'root'@'localhost'=password('qatx');  
-firewall-cmd --permanent --zone=public --add-port=80/tcp  
-systemctl restart firewalld.service  
+17. service mysql start  
+18. ln -s /usr/local/mysql/bin/mysql /usr/bin  
+19. mysql -uroot -p#MvVr,sen2ty  
+20. set password for 'root'@'localhost'=password('root');  
+21. grant all privileges on *.* to 'root'@'%' identified by 'root';  
+22. flush privileges;  
+23. exit  
+24. firewall-cmd --zone=public --add-port=3306/tcp --permanent  
+25. systemctl restart firewalld   
+备注：cmake失败时，需rm CMakeCache.txt   
 vi /etc/firewalld/zones/public.xml  
 explicit_defaults_for_timestamp=1
-
-
 rpm -qa | grep mariadb  
 rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64
