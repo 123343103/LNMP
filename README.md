@@ -84,4 +84,26 @@ vi /etc/firewalld/zones/public.xml
 explicit_defaults_for_timestamp=1  
 rpm -qa | grep mariadb  
 rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64  
-在华为云上要设置安全组，开放3306端口。
+在华为云上要设置安全组，开放3306端口。  
+### install php
+1. yum -y install gcc gcc-c++ libxml2-devel 
+2. cd /usr/local/src  
+3. wget http://hk1.php.net/get/php-7.2.4.tar.gz/from/this/mirror  
+4. tar -zxvf mirror  
+5. cd php-7.2.4  
+6. ./configure --prefix=/usr/local/php --enable-fpm
+
+
+
+1. cd /usr/local/src
+2. wget http://hk1.php.net/get/php-7.2.4.tar.gz/from/this/mirror  
+3. tar -zxvf mirror
+4. /usr/local/src/php-7.2.4/configure --prefix=/usr/local/php --enable-fpm
+5. make  
+6. make install
+7. /usr/local/php/sbin/php-fpm
+8. cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
+9. /usr/local/php/sbin/php-fpm
+10. cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf  
+11. /usr/local/php/sbin/php-fpm  
+12. ps aux | grep php-fpm
