@@ -83,4 +83,5 @@ fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 vi /etc/firewalld/zones/public.xml  
 explicit_defaults_for_timestamp=1  
 rpm -qa | grep mariadb  
-rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64
+rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64  
+在华为云上要设置安全组，开放3306端口。
