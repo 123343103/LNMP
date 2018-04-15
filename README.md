@@ -8,6 +8,8 @@
 3).编译安装 make install；  
 4).备注：源代码保存位置 /usr/local/src，软件安装位置 /usr/local
 2. 源安装（yum install nginx）；
+### linux常用命令
+1. netstat -nlpt（查看端口）
 ### install mysql
 1. yum -y install gcc gcc-c++ cmake ncurses-devel  
 2. groupadd mysql  
@@ -71,8 +73,6 @@ rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64
 15. source /etc/profile  
 16. chkconfig --add php-fpm  
 17. chkconfig php-fpm on
-### linux常用命令
-1. netstat -nlpt（查看端口）
 ### install nginx
 1. yum -y install gcc gcc-c++ pcre-devel  
 2. cd /usr/local/src
