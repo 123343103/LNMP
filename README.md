@@ -91,19 +91,18 @@ rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64
 3. wget http://hk1.php.net/get/php-7.2.4.tar.gz/from/this/mirror  
 4. tar -zxvf mirror  
 5. cd php-7.2.4  
-6. ./configure --prefix=/usr/local/php --enable-fpm
-
-
-
-1. cd /usr/local/src
-2. wget http://hk1.php.net/get/php-7.2.4.tar.gz/from/this/mirror  
-3. tar -zxvf mirror
-4. /usr/local/src/php-7.2.4/configure --prefix=/usr/local/php --enable-fpm
-5. make  
-6. make install
-7. /usr/local/php/sbin/php-fpm
-8. cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
-9. /usr/local/php/sbin/php-fpm
-10. cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf  
-11. /usr/local/php/sbin/php-fpm  
-12. ps aux | grep php-fpm
+6. ./configure --prefix=/usr/local/php --enable-fpm  
+7. make  
+8. make install  
+9. cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm  
+10. chmod a+x /etc/init.d/php-fpm  
+11. touch /usr/local/php/var/run/php-fpm.pid  
+12. vi /usr/local/php/etc/php-fpm.conf 启用pid
+13. service php-fpm start
+14. vi /etc/profile  
+    在文件末尾添加如下两行：  
+    PATH=$PATH:/usr/local/php/bin
+    export PATH  
+15. source /etc/profile  
+16. chkconfig --add php-fpm  
+17. chkconfig php-fpm on
