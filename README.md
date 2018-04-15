@@ -8,28 +8,6 @@
 3).编译安装 make install；  
 4).备注：源代码保存位置 /usr/local/src，软件安装位置 /usr/local
 2. 源安装（yum install nginx）；
-### linux常用命令
-1. netstat -nlpt（查看端口）
-### install nginx
-1. cd /usr/local/src
-2. wget http://nginx.org/download/nginx-1.12.2.tar.gz  
-3. tar -zxvf nginx-1.12.2.tar.gz  
-4. /usr/local/src/nginx-1.12.2/configure --prefix=/usr/local/nginx
-5. make
-6. make install
-7. /usr/local/nginx/sbin/nginx 
-8. ps aux | grep nginx  
-9. 备注：启动./nginx 停止./nginx -s stop 重启./nginx -s reload  
-10. 修改配置文件：/usr/local/nginx/conf/nginx.conf  
-location ~ \.php {  
-fastcgi_pass    127.0.0.1:9000;  
-fastcgi_index   /index.php;  
-include         /usr/local/nginx/conf/fastcgi_params;  
-fastcgi_split_path_info            ^(.+\.php)(/.+)$;  
-fastcgi_param   PATH_INTO          $fastcgi_path_info;  
-fastcgi_param   PATH_TRANSLATED    $document_root$fastcgi_path_info;  
-fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;  
-}
 ### install mysql
 1. yum -y install gcc gcc-c++ cmake ncurses-devel  
 2. groupadd mysql  
@@ -82,7 +60,7 @@ rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64
 7. make  
 8. make install  
 9. cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm  
-10. chmod a+x /etc/init.d/php-fpm  
+10. chmod 777 /etc/init.d/php-fpm  
 11. touch /usr/local/php/var/run/php-fpm.pid  
 12. vi /usr/local/php/etc/php-fpm.conf 启用pid
 13. service php-fpm start
@@ -93,3 +71,32 @@ rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64
 15. source /etc/profile  
 16. chkconfig --add php-fpm  
 17. chkconfig php-fpm on
+### linux常用命令
+1. netstat -nlpt（查看端口）
+### install nginx
+1. yum -y install gcc gcc-c++ pcre-devel  
+2. cd /usr/local/src
+3. wget http://nginx.org/download/nginx-1.12.2.tar.gz  
+4. tar -zxvf nginx-1.12.2.tar.gz  
+5. cd nginx-1.12.2  
+6. ./configure --prefix=/usr/local/nginx
+7. make
+8. make install
+9. /usr/local/nginx/sbin/nginx 
+10. ps aux | grep nginx  
+11. 启动/usr/local/nginx/sbin/nginx 停止/usr/local/nginx/sbin/nginx -s stop 重启/usr/local/nginx/sbin/nginx -s reload  
+12. vi /etc/init.d/nginx  
+    打开连接https://www.nginx.com/resources/wiki/start/topics/examples/redhatnginxinit/复制脚本
+    修改nginx="/usr/sbin/nginx"为nginx="/usr/local/nginx/sbin/nginx"  
+    修改NGINX_CONF_FILE="/etc/nginx/nginx.conf"为NGINX_CONF_FILE="/usr/local/nginx/conf/nginx.conf"  
+13. chmod 777 /etc/init.d/nginx
+10. 修改配置文件：/usr/local/nginx/conf/nginx.conf   
+location ~ \.php {  
+fastcgi_pass    127.0.0.1:9000;  
+fastcgi_index   /index.php;  
+include         /usr/local/nginx/conf/fastcgi_params;  
+fastcgi_split_path_info            ^(.+\.php)(/.+)$;  
+fastcgi_param   PATH_INTO          $fastcgi_path_info;  
+fastcgi_param   PATH_TRANSLATED    $document_root$fastcgi_path_info;  
+fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;  
+}
