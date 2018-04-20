@@ -81,22 +81,15 @@ rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64
 5. cd nginx-1.12.2  
 6. ./configure --prefix=/usr/local/nginx
 7. make
-8. make install
-9. /usr/local/nginx/sbin/nginx 
-10. ps aux | grep nginx  
-11. 启动/usr/local/nginx/sbin/nginx 停止/usr/local/nginx/sbin/nginx -s stop 重启/usr/local/nginx/sbin/nginx -s reload  
-12. vi /etc/init.d/nginx  
-    打开连接https://www.nginx.com/resources/wiki/start/topics/examples/redhatnginxinit/复制脚本
-    修改nginx="/usr/sbin/nginx"为nginx="/usr/local/nginx/sbin/nginx"  
-    修改NGINX_CONF_FILE="/etc/nginx/nginx.conf"为NGINX_CONF_FILE="/usr/local/nginx/conf/nginx.conf"  
-13. chmod 777 /etc/init.d/nginx
-10. 修改配置文件：/usr/local/nginx/conf/nginx.conf   
-location ~ \.php {  
-fastcgi_pass    127.0.0.1:9000;  
-fastcgi_index   /index.php;  
-include         /usr/local/nginx/conf/fastcgi_params;  
-fastcgi_split_path_info            ^(.+\.php)(/.+)$;  
-fastcgi_param   PATH_INTO          $fastcgi_path_info;  
-fastcgi_param   PATH_TRANSLATED    $document_root$fastcgi_path_info;  
-fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;  
-}
+8. make install  
+9. vi /etc/init.d/nginx  
+   打开连接https://www.nginx.com/resources/wiki/start/topics/examples/redhatnginxinit/复制脚本
+   将 # pidfile:     /var/run/nginx.pid 修改为 # pidfile:     /usr/local/nginx/logs/nginx.pid     
+   将 nginx="/usr/sbin/nginx" 修改为 nginx="/usr/local/nginx/sbin/nginx"  
+   将 NGINX_CONF_FILE="/etc/nginx/nginx.conf" 修改为 NGINX_CONF_FILE="/usr/local/nginx/conf/nginx.conf"  
+10. chmod 777 /etc/init.d/nginx  
+11. 启动service nginx start 停止service nginx stop  
+12. chkconfig --add nginx
+13. chkconfig nginx on  
+14. 配置PHP：打开/usr/local/nginx/conf/nginx.conf配置文件中的PHP代码，并将/scripts修改为$document_root  
+15. 备注：启动/usr/local/nginx/sbin/nginx 停止/usr/local/nginx/sbin/nginx -s stop 重启/usr/local/nginx/sbin/nginx -s reload 
