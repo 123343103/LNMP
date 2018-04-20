@@ -84,8 +84,8 @@ rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64
 8. make install  
 9. vi /etc/init.d/nginx  
    打开连接https://www.nginx.com/resources/wiki/start/topics/examples/redhatnginxinit/复制脚本  
-   将 # pidfile:     /var/run/nginx.pid 修改为 # pidfile:     /usr/local/nginx/logs/nginx.pid       
-   将 nginx="/usr/sbin/nginx" 修改为 nginx="/usr/local/nginx/sbin/nginx"    
+   将 # pidfile:     /var/run/nginx.pid 修改为 # pidfile:     /usr/local/nginx/logs/nginx.pid  
+   将 nginx="/usr/sbin/nginx" 修改为 nginx="/usr/local/nginx/sbin/nginx"  
    将 NGINX_CONF_FILE="/etc/nginx/nginx.conf" 修改为 NGINX_CONF_FILE="/usr/local/nginx/conf/nginx.conf"  
 10. chmod 777 /etc/init.d/nginx  
 11. 启动service nginx start 停止service nginx stop  
