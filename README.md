@@ -55,7 +55,7 @@ rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64
 ### install php
 1. yum -y install gcc gcc-c++ libxml2-devel 
 2. cd /usr/local/src  
-3. wget http://hk1.php.net/get/php-7.2.4.tar.gz/from/this/mirror  
+3. wget http://cn2.php.net/get/php-7.2.4.tar.gz/from/this/mirror  
 4. tar -zxvf mirror  
 5. cd php-7.2.4  
 6. ./configure --prefix=/usr/local/php --enable-fpm  
