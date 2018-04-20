@@ -98,5 +98,7 @@ explicit_defaults_for_timestamp=1
 11. 启动service nginx start 停止service nginx stop  
 12. chkconfig --add nginx
 13. chkconfig nginx on  
-14. 配置PHP：打开/usr/local/nginx/conf/nginx.conf配置文件中的PHP代码，并将/scripts修改为$document_root  
-15. 备注：启动/usr/local/nginx/sbin/nginx 停止/usr/local/nginx/sbin/nginx -s stop 重启/usr/local/nginx/sbin/nginx -s reload 
+14. firewall-cmd --zone=public --add-port=80/tcp --permanent
+15. systemctl restart firewalld
+16. 配置PHP：打开/usr/local/nginx/conf/nginx.conf配置文件中的PHP代码，并将/scripts修改为$document_root  
+17. 备注：启动/usr/local/nginx/sbin/nginx 停止/usr/local/nginx/sbin/nginx -s stop 重启/usr/local/nginx/sbin/nginx -s reload 
