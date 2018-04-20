@@ -58,7 +58,10 @@ rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64
 3. wget http://cn2.php.net/get/php-7.2.4.tar.gz/from/this/mirror  
 4. tar -zxvf mirror  
 5. cd php-7.2.4  
-6. ./configure --prefix=/usr/local/php --enable-fpm  
+6. ./configure --prefix=/usr/local/php \
+   --enable-fpm \
+   --with-mysqli=/usr/local/mysql/bin/mysql_config \
+   --with-pdo-mysql=/usr/local/mysql  
 7. make  
 8. make install  
 9. cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm  
