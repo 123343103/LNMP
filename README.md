@@ -11,16 +11,18 @@
 ### linux常用命令
 1. netstat -nlpt（查看端口）
 ### install mysql
-1. yum -y install gcc gcc-c++ cmake ncurses-devel  
-2. groupadd mysql  
-3. useradd -r -g mysql -s /bin/false mysql  
-4. mkdir -p /usr/local/mysql  
-5. mkdir -p /data/mysql  
-6. cd /usr/local/src  
-7. wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-boost-5.7.21.tar.gz  
-8. tar -zxvf mysql-boost-5.7.21.tar.gz  
-9. cd mysql-5.7.21  
-10. cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+1. rpm -qa | grep mariadb  
+2. rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64  
+3. yum -y install gcc gcc-c++ cmake ncurses-devel  
+4. groupadd mysql  
+5. useradd -r -g mysql -s /bin/false mysql  
+6. mkdir -p /usr/local/mysql  
+7. mkdir -p /data/mysql  
+8. cd /usr/local/src  
+9. wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-boost-5.7.21.tar.gz  
+10. tar -zxvf mysql-boost-5.7.21.tar.gz  
+11. cd mysql-5.7.21  
+12. cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
 -DMYSQL_DATADIR=/data/mysql \
 -DSYSCONFDIR=/etc \
 -DDEFAULT_CHARSET=utf8 \
@@ -30,27 +32,26 @@
 -DWITH_MEMORY_STORAGE_ENGINE=1 \
 -DWITH_ARCHIVE_STORAGE_ENGINE=1 \
 -DWITH_BOOST=boost  
-11. make
-12. make install  
+13. make
+14. make install  
 13. cd /usr/local/mysql  
 14. bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/data/mysql  
 15. #MvVr,sen2ty  
 16. cp support-files/mysql.server /etc/init.d/mysql  
 17. service mysql start  
 18. ln -s /usr/local/mysql/bin/mysql /usr/bin  
-19. mysql -uroot -p#MvVr,sen2ty  
-20. set password for 'root'@'localhost'=password('root');  
-21. grant all privileges on *.* to 'root'@'%' identified by 'root';  
-22. flush privileges;  
-23. exit  
-24. firewall-cmd --zone=public --add-port=3306/tcp --permanent  
-25. systemctl restart firewalld  
-26. systemctl enable mysql  
+19. mysql -u root -p  
+20. #MvVr,sen2ty
+21. set password for 'root'@'localhost'=password('root');   
+22. grant all privileges on *.* to 'root'@'%' identified by 'root';  
+23. flush privileges;  
+24. exit  
+25. firewall-cmd --zone=public --add-port=3306/tcp --permanent  
+26. systemctl restart firewalld  
+27. systemctl enable mysql  
 备注：cmake失败时，需rm CMakeCache.txt   
 vi /etc/firewalld/zones/public.xml  
 explicit_defaults_for_timestamp=1  
-rpm -qa | grep mariadb  
-rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64  
 在华为云上要设置安全组，开放3306端口。  
 ### install php
 1. yum -y install gcc gcc-c++ libxml2-devel 
