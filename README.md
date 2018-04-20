@@ -67,16 +67,19 @@ explicit_defaults_for_timestamp=1
 8. make install  
 9. cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm  
 10. chmod 777 /etc/init.d/php-fpm  
-11. touch /usr/local/php/var/run/php-fpm.pid  
-12. vi /usr/local/php/etc/php-fpm.conf 启用pid
-13. service php-fpm start
-14. vi /etc/profile  
+11. cd /usr/local/php
+12. cp etc/php-fpm.conf.default etc/php-fpm.conf  
+13. cp etc/php-fpm.d/www.conf.default etc/php-fpm.d/www.conf  
+14. touch /usr/local/php/var/run/php-fpm.pid  
+15. vi /usr/local/php/etc/php-fpm.conf 启用pid = run/php-fpm.pid
+16. service php-fpm start
+17. vi /etc/profile  
     在文件末尾添加如下两行：  
     PATH=$PATH:/usr/local/php/bin  
     export PATH  
-15. source /etc/profile  
-16. chkconfig --add php-fpm  
-17. chkconfig php-fpm on
+18. source /etc/profile  
+19. chkconfig --add php-fpm  
+20. chkconfig php-fpm on
 ### install nginx
 1. yum -y install gcc gcc-c++ pcre-devel zlib-devel  
 2. cd /usr/local/src
