@@ -74,7 +74,7 @@ rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64
 16. chkconfig --add php-fpm  
 17. chkconfig php-fpm on
 ### install nginx
-1. yum -y install gcc gcc-c++ pcre-devel  
+1. yum -y install gcc gcc-c++ pcre-devel zlib-devel  
 2. cd /usr/local/src
 3. wget http://nginx.org/download/nginx-1.12.2.tar.gz  
 4. tar -zxvf nginx-1.12.2.tar.gz  
