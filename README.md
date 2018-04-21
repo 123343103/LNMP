@@ -103,3 +103,12 @@ explicit_defaults_for_timestamp=1
 15. systemctl restart firewalld
 16. 配置PHP：打开/usr/local/nginx/conf/nginx.conf配置文件中的PHP代码，并将/scripts修改为$document_root  
 17. 备注：启动/usr/local/nginx/sbin/nginx 停止/usr/local/nginx/sbin/nginx -s stop 重启/usr/local/nginx/sbin/nginx -s reload 
+### install apache
+1. yum -y install gcc gcc-c++ zlib-devel  
+2. cd /usr/local/src
+3. wget http://mirror.bit.edu.cn/apache//httpd/httpd-2.4.33.tar.gz  
+4. tar -zxvf httpd-2.4.33.tar.gz  
+5. cd httpd-2.4.33  
+6. ./configure --prefix=/usr/local/apache2
+7. make
+8. make install  
