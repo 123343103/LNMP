@@ -9,7 +9,8 @@
 4).备注：源代码保存位置 /usr/local/src，软件安装位置 /usr/local
 2. 源安装（yum install nginx）；
 ### linux常用命令
-1. netstat -nlpt（查看端口）
+1. netstat -nlpt（查看端口占用情况）  
+2. firewall-cmd --list-ports（查看开放的端口）
 ### install mysql
 1. rpm -qa | grep mariadb  
 2. rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64  
