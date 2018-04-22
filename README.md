@@ -104,11 +104,21 @@ explicit_defaults_for_timestamp=1
 16. 配置PHP：打开/usr/local/nginx/conf/nginx.conf配置文件中的PHP代码，并将/scripts修改为$document_root  
 17. 备注：启动/usr/local/nginx/sbin/nginx 停止/usr/local/nginx/sbin/nginx -s stop 重启/usr/local/nginx/sbin/nginx -s reload 
 ### install apache
-1. yum -y install gcc gcc-c++ zlib-devel  
-2. cd /usr/local/src
+1. yum -y install gcc gcc-c++ expat-devel  
+2. cd /usr/local/src  
 3. wget http://mirror.bit.edu.cn/apache//httpd/httpd-2.4.33.tar.gz  
 4. tar -zxvf httpd-2.4.33.tar.gz  
-5. cd httpd-2.4.33  
-6. ./configure --prefix=/usr/local/apache2
-7. make
-8. make install  
+5. wget http://mirrors.hust.edu.cn/apache//apr/apr-1.6.3.tar.gz 
+6. tar -zxvf apr-1.6.3.tar.gz  
+7. mv apr-1.6.3 apr
+8. wget http://mirrors.hust.edu.cn/apache//apr/apr-util-1.6.1.tar.gz  
+9. tar -zxvf apr-util-1.6.1.tar.gz  
+10. mv apr-util-1.6.1 apr-util
+11. mv apr apr-util httpd-2.4.33/srclib  
+
+ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.42.tar.gz
+
+12. cd httpd-2.4.33  
+13. ./configure --prefix=/usr/local/apache2 --with-included-apr --with-pcre=/usr/local/pcre-8.42/bin/pcre-config
+14. make
+15. make install  
